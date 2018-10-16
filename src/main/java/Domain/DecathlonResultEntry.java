@@ -1,6 +1,8 @@
 package Domain;
 
-public class DecathlonResultRaw {
+
+
+public class DecathlonResultEntry {
 
     private String AthleteName;
 
@@ -14,9 +16,10 @@ public class DecathlonResultRaw {
     private Double PoleVaultDistance;
     private Double JavelinThrowDistance;
     private Double OneAndHalfKilometerRunTime;
+    private Integer TotalScore;
 
 
-    public DecathlonResultRaw(
+    public DecathlonResultEntry(
             String athleteName,
             Double hundredMetersSprintTime,
             Double longJumpDistance,
@@ -27,7 +30,8 @@ public class DecathlonResultRaw {
             Double discusThrowDistance,
             Double poleVaultDistance,
             Double javelinThrowDistance,
-            Double oneAndHalfKilometerRunTime
+            Double oneAndHalfKilometerRunTime,
+            Integer totalScore
     ) {
         AthleteName = athleteName;
         HundredMetersSprintTime = hundredMetersSprintTime;
@@ -40,6 +44,7 @@ public class DecathlonResultRaw {
         PoleVaultDistance = poleVaultDistance;
         JavelinThrowDistance = javelinThrowDistance;
         OneAndHalfKilometerRunTime = oneAndHalfKilometerRunTime;
+        TotalScore = totalScore;
     }
 
     public String getAthleteName() {
@@ -85,6 +90,10 @@ public class DecathlonResultRaw {
     public Double getOneAndHalfKilometerRunTime() {
         return OneAndHalfKilometerRunTime;
     }
+    
+    public Integer getTotalScore() {
+        return TotalScore;
+    }
 
     @Override
     public String toString() {
@@ -101,6 +110,7 @@ public class DecathlonResultRaw {
         builder.append(String.format("Pole vault: %f, ", PoleVaultDistance));
         builder.append(String.format("Javelin throw: %f, ", JavelinThrowDistance));
         builder.append(String.format("1500m run: %f, ", OneAndHalfKilometerRunTime));
+        builder.append(String.format("Total score: %d", TotalScore));
         builder.append("}");
 
         return builder.toString();
