@@ -3,8 +3,6 @@ package com.decathlon.calc.Writer;
 import com.decathlon.calc.Domain.DecathlonEventResult;
 import com.decathlon.calc.Domain.DecathlonEventType;
 import com.decathlon.calc.Domain.DecathlonResultEntry;
-import com.decathlon.calc.Reader.IDecathlonResultReader;
-import com.sun.org.apache.xerces.internal.jaxp.DocumentBuilderFactoryImpl;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 

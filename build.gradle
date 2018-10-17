@@ -17,6 +17,13 @@ dependencies {
 
 apply plugin: 'application'
 mainClassName = 'com.decathlon.calc.Main'
+jar {
+    manifest {
+        attributes 'Implementation-Title': 'Decathlon_calc',
+                'Implementation-Version': version,
+                'Main-Class': 'com.decathlon.calc.Main'
+    }
+}
 
 run{
     standardInput = System.in
