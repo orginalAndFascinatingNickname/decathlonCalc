@@ -1,165 +1,105 @@
 package Properties;
 
+import java.rmi.server.ExportException;
+import java.util.Enumeration;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.ResourceBundle;
+
 public class DecathlonCoefficients {
 
-    private final static Double SPRINT_A = 25.4347;
-    private final static Double SPRINT_B = 18.0;
-    private final static Double SPRINT_C = 1.81;
+    //Default coefficients
+    private static final Map<String, Double> DEFAULT_COEFS_MAP;
+    static {
+        DEFAULT_COEFS_MAP = new HashMap<>();
 
-    private final static Double LONG_JUMP_A = 0.14354;
-    private final static Double LONG_JUMP_B = 220.0;
-    private final static Double LONG_JUMP_C = 1.4;
+        DEFAULT_COEFS_MAP.put("SPRINT_A", 25.4347);
+        DEFAULT_COEFS_MAP.put("SPRINT_B", 18.0);
+        DEFAULT_COEFS_MAP.put("SPRINT_C", 1.81);
 
-    private final static Double SHOT_PUT_A = 51.39;
-    private final static Double SHOT_PUT_B = 1.5;
-    private final static Double SHOT_PUT_C = 1.05;
+        DEFAULT_COEFS_MAP.put("LONG_JUMP_A", 0.14354);
+        DEFAULT_COEFS_MAP.put("LONG_JUMP_B", 220.0);
+        DEFAULT_COEFS_MAP.put("LONG_JUMP_C", 1.4);
 
-    private final static Double HIGH_JUMP_A = 0.8465;
-    private final static Double HIGH_JUMP_B = 75.0;
-    private final static Double HIGH_JUMP_C = 1.42;
+        DEFAULT_COEFS_MAP.put("SHOT_PUT_A", 51.39);
+        DEFAULT_COEFS_MAP.put("SHOT_PUT_B", 1.5);
+        DEFAULT_COEFS_MAP.put("SHOT_PUT_C", 1.05);
 
-    private final static Double FOUR_HUNDRED_METER_RUN_A = 1.53775;
-    private final static Double FOUR_HUNDRED_METER_RUN_B = 82.0;
-    private final static Double FOUR_HUNDRED_METER_RUN_C = 1.81;
+        DEFAULT_COEFS_MAP.put("HIGH_JUMP_A", 0.8465);
+        DEFAULT_COEFS_MAP.put("HIGH_JUMP_B", 75.0);
+        DEFAULT_COEFS_MAP.put("HIGH_JUMP_C", 1.42);
 
-    private final static Double HURDLES_A = 5.74352;
-    private final static Double HURDLES_B = 28.5;
-    private final static Double HURDLES_C = 1.92;
+        DEFAULT_COEFS_MAP.put("FOUR_HUNDRED_METER_RUN_A", 1.53775);
+        DEFAULT_COEFS_MAP.put("FOUR_HUNDRED_METER_RUN_B", 82.0);
+        DEFAULT_COEFS_MAP.put("FOUR_HUNDRED_METER_RUN_C", 1.81);
 
-    private final static Double DISCUS_THROW_A = 12.91;
-    private final static Double DISCUS_THROW_B = 4.0;
-    private final static Double DISCUS_THROW_C = 1.1;
+        DEFAULT_COEFS_MAP.put("HURDLES_A", 5.74352);
+        DEFAULT_COEFS_MAP.put("HURDLES_B", 28.5);
+        DEFAULT_COEFS_MAP.put("HURDLES_C", 1.92);
 
-    private final static Double POLE_VAULT_A = 0.2797;
-    private final static Double POLE_VAULT_B = 100.0;
-    private final static Double POLE_VAULT_C = 1.35;
+        DEFAULT_COEFS_MAP.put("DISCUS_THROW_A", 12.91);
+        DEFAULT_COEFS_MAP.put("DISCUS_THROW_B", 4.0);
+        DEFAULT_COEFS_MAP.put("DISCUS_THROW_C", 1.1);
 
-    private final static Double JAVELIN_THROW_A = 10.14;
-    private final static Double JAVELIN_THROW_B = 7.0;
-    private final static Double JAVELIN_THROW_C = 1.08;
+        DEFAULT_COEFS_MAP.put("POLE_VAULT_A", 0.2797);
+        DEFAULT_COEFS_MAP.put("POLE_VAULT_B", 100.0);
+        DEFAULT_COEFS_MAP.put("POLE_VAULT_C", 1.35);
 
-    private final static Double ONE_AND_HALF_KILOMETER_RUN_A = 0.03768;
-    private final static Double ONE_AND_HALF_KILOMETER_RUN_B = 480.0;
-    private final static Double ONE_AND_HALF_KILOMETER_RUN_C = 1.85;
+        DEFAULT_COEFS_MAP.put("JAVELIN_THROW_A", 10.14);
+        DEFAULT_COEFS_MAP.put("JAVELIN_THROW_B", 7.0);
+        DEFAULT_COEFS_MAP.put("JAVELIN_THROW_C", 1.08);
 
-
-    public static Double getSprintA() {
-        return SPRINT_A;
+        DEFAULT_COEFS_MAP.put("ONE_AND_HALF_KILOMETER_RUN_A", 0.03768);
+        DEFAULT_COEFS_MAP.put("ONE_AND_HALF_KILOMETER_RUN_B", 480.0);
+        DEFAULT_COEFS_MAP.put("ONE_AND_HALF_KILOMETER_RUN_C", 1.85);
     }
 
-    public static Double getSprintB() {
-        return SPRINT_B;
+    private Map<String, Double> decathlonCoefficientsMap;
+
+    public DecathlonCoefficients() {
+        decathlonCoefficientsMap = new HashMap<>();
     }
 
-    public static Double getSprintC() {
-        return SPRINT_C;
+    public Double getCoefficientValue(String coefName) {
+        if(!decathlonCoefficientsMap.containsKey(coefName)) {
+            if(!DEFAULT_COEFS_MAP.containsKey(coefName)) return null;
+            return DEFAULT_COEFS_MAP.get(coefName);
+        }
+
+        return decathlonCoefficientsMap.get(coefName);
     }
 
-    public static Double getLongJumpA() {
-        return LONG_JUMP_A;
+    public boolean addCoefficient(String name, Double value) {
+        if(
+            name == null ||
+            value == null ||
+            decathlonCoefficientsMap.containsKey(name)
+        )
+            return false;
+
+        return decathlonCoefficientsMap.put(name, value).equals(value);
     }
 
-    public static Double getLongJumpB() {
-        return LONG_JUMP_B;
+    public void readPropertiesFile(String filename) {
+        ResourceBundle decathlonCoefsFile = ResourceBundle.getBundle(filename);
+        Enumeration<String> coefNames = decathlonCoefsFile.getKeys();
+
+        while(coefNames.hasMoreElements()) {
+            String key = coefNames.nextElement();
+            String valueString = decathlonCoefsFile.getString(key);
+
+            try {
+                Double value = Double.parseDouble(valueString);
+                decathlonCoefficientsMap.put(key, value);
+            }
+            catch (Exception e) {
+                System.out.println(
+                        String.format(
+                                "Failed to parse coefficient value." +
+                                        " Given coef value - {0}", valueString)
+                );
+            }
+        }
     }
 
-    public static Double getLongJumpC() {
-        return LONG_JUMP_C;
-    }
-
-    public static Double getShotPutA() {
-        return SHOT_PUT_A;
-    }
-
-    public static Double getShotPutB() {
-        return SHOT_PUT_B;
-    }
-
-    public static Double getShotPutC() {
-        return SHOT_PUT_C;
-    }
-
-    public static Double getHighJumpA() {
-        return HIGH_JUMP_A;
-    }
-
-    public static Double getHighJumpB() {
-        return HIGH_JUMP_B;
-    }
-
-    public static Double getHighJumpC() {
-        return HIGH_JUMP_C;
-    }
-
-    public static Double getFourHundredMeterRunA() {
-        return FOUR_HUNDRED_METER_RUN_A;
-    }
-
-    public static Double getFourHundredMeterRunB() {
-        return FOUR_HUNDRED_METER_RUN_B;
-    }
-
-    public static Double getFourHundredMeterRunC() {
-        return FOUR_HUNDRED_METER_RUN_C;
-    }
-
-    public static Double getHurdlesA() {
-        return HURDLES_A;
-    }
-
-    public static Double getHurdlesB() {
-        return HURDLES_B;
-    }
-
-    public static Double getHurdlesC() {
-        return HURDLES_C;
-    }
-
-    public static Double getDiscusThrowA() {
-        return DISCUS_THROW_A;
-    }
-
-    public static Double getDiscusThrowB() {
-        return DISCUS_THROW_B;
-    }
-
-    public static Double getDiscusThrowC() {
-        return DISCUS_THROW_C;
-    }
-
-    public static Double getPoleVaultA() {
-        return POLE_VAULT_A;
-    }
-
-    public static Double getPoleVaultB() {
-        return POLE_VAULT_B;
-    }
-
-    public static Double getPoleVaultC() {
-        return POLE_VAULT_C;
-    }
-
-    public static Double getJavelinThrowA() {
-        return JAVELIN_THROW_A;
-    }
-
-    public static Double getJavelinThrowB() {
-        return JAVELIN_THROW_B;
-    }
-
-    public static Double getJavelinThrowC() {
-        return JAVELIN_THROW_C;
-    }
-
-    public static Double getOneAndHalfKilometerRunA() {
-        return ONE_AND_HALF_KILOMETER_RUN_A;
-    }
-
-    public static Double getOneAndHalfKilometerRunB() {
-        return ONE_AND_HALF_KILOMETER_RUN_B;
-    }
-
-    public static Double getOneAndHalfKilometerRunC() {
-        return ONE_AND_HALF_KILOMETER_RUN_C;
-    }
 }
