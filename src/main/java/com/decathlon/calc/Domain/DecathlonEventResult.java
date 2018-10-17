@@ -1,4 +1,4 @@
-package Domain;
+package com.decathlon.calc.Domain;
 
 public class DecathlonEventResult {
 

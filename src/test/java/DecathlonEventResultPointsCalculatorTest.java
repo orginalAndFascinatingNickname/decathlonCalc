@@ -1,4 +1,6 @@
-import Domain.DecathlonEventResult;
+import com.decathlon.calc.Domain.DecathlonEventResult;
+import com.decathlon.calc.DecathlonEventResultPointsCalculator;
+import com.decathlon.calc.IncorrectDecathlonEventTypeException;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -101,7 +103,7 @@ public class DecathlonEventResultPointsCalculatorTest {
             Assert.assertNotNull(calcResult);
             Assert.assertEquals(1096, (int) calcResult);
         } catch (IncorrectDecathlonEventTypeException e) {
-            Assert.fail("IncorrectDecathlonEventTypeException " +
+            Assert.fail("com.decathlon.calc.IncorrectDecathlonEventTypeException " +
                     "should not be thrown.");
         }
 
@@ -118,7 +120,7 @@ public class DecathlonEventResultPointsCalculatorTest {
             Assert.assertNotNull(calcResult);
             Assert.assertEquals(1061, (int) calcResult);
         } catch (IncorrectDecathlonEventTypeException e) {
-            Assert.fail("IncorrectDecathlonEventTypeException " +
+            Assert.fail("com.decathlon.calc.IncorrectDecathlonEventTypeException " +
                     "should not be thrown.");
         }
     }

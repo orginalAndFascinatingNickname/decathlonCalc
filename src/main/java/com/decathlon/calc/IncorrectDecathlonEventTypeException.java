@@ -1,3 +1,5 @@
+package com.decathlon.calc;
+
 public class IncorrectDecathlonEventTypeException extends Exception {
 
     private String message;

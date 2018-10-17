@@ -1,6 +1,5 @@
-package Properties;
+package com.decathlon.calc.Properties;
 
-import java.rmi.server.ExportException;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Map;

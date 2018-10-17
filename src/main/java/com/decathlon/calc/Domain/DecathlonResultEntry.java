@@ -1,4 +1,4 @@
-package Domain;
+package com.decathlon.calc.Domain;
 
 
 import java.util.HashSet;
@@ -12,8 +12,11 @@ public class DecathlonResultEntry {
 
     private Integer totalScore;
 
+    private String place;
+
     public DecathlonResultEntry() {
         eventResults = new HashSet<>();
+        totalScore = 0;
     }
 
     public DecathlonResultEntry(String athleteName) {
@@ -58,5 +61,13 @@ public class DecathlonResultEntry {
 
     public void setTotalScore(Integer totalScore) {
         this.totalScore = totalScore;
+    }
+
+    public String getPlace() {
+        return place;
+    }
+
+    public void setPlace(String place) {
+        this.place = place;
     }
 }
