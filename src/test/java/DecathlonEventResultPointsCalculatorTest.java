@@ -1,5 +1,5 @@
 import com.decathlon.calc.Domain.DecathlonEventResult;
-import com.decathlon.calc.DecathlonEventResultPointsCalculator;
+import com.decathlon.calc.Calculation.DecathlonEventResultPointsCalculator;
 import com.decathlon.calc.IncorrectDecathlonEventTypeException;
 import org.junit.Assert;
 import org.junit.Test;

@@ -102,7 +102,7 @@ public class DecathlonCoefficients {
                 System.out.println(
                         String.format(
                                 "Failed to parse coefficient value." +
-                                        " Given coef value - {0}", valueString)
+                                        " Given coef value - %s", valueString)
                 );
             }
         }

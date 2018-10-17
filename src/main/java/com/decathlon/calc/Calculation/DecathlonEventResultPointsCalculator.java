@@ -1,7 +1,8 @@
-package com.decathlon.calc;
+package com.decathlon.calc.Calculation;
 
 import com.decathlon.calc.Domain.DecathlonEventResult;
 import com.decathlon.calc.Domain.DecathlonEventType;
+import com.decathlon.calc.IncorrectDecathlonEventTypeException;
 import com.decathlon.calc.Properties.DecathlonCoefficients;
 
 public class DecathlonEventResultPointsCalculator {

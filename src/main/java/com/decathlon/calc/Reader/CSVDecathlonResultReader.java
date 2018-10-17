@@ -1,12 +1,10 @@
 package com.decathlon.calc.Reader;
 
-import com.decathlon.calc.Domain.DecathlonEventResult;
 import com.decathlon.calc.Domain.DecathlonEventType;
-import com.decathlon.calc.Properties.DecathlonCoefficients;
-import com.decathlon.calc.DecathlonEventResultPointsCalculator;
 import com.decathlon.calc.Domain.DecathlonResultEntry;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -16,8 +14,6 @@ public class CSVDecathlonResultReader implements IDecathlonResultReader {
     private static final String CSV_DELIMITER = ";";
 
     private String fileName;
-    private DecathlonCoefficients decathlonCoefficients;
-    private DecathlonEventResultPointsCalculator pointsCalculator;
     private String[] eventNames;
 
     public CSVDecathlonResultReader(String fileName) {
@@ -29,14 +25,6 @@ public class CSVDecathlonResultReader implements IDecathlonResultReader {
                 "ONE_AND_HALF_KILOMETER_RUN"};
     }
 
-    public CSVDecathlonResultReader(
-            String fileName,
-            DecathlonCoefficients decathlonCoefficients
-    ) {
-        this(fileName);
-        this.decathlonCoefficients = decathlonCoefficients;
-    }
-
     @Override
     public List<DecathlonResultEntry> readAllEntries() throws Exception {
 
@@ -44,12 +32,12 @@ public class CSVDecathlonResultReader implements IDecathlonResultReader {
 
         //try to open a file
         File inputFile = new File(fileName);
+        if(!inputFile.exists()) throw new FileNotFoundException();
 
         Scanner inputFileScanner = new Scanner(inputFile);
 
         while (inputFileScanner.hasNext()) {
             String line = inputFileScanner.nextLine();
-            System.out.println(line);
             DecathlonResultEntry resultEntry =
                     parseDecathlonResultEntryString(line);
             resultEntries.add(resultEntry);
