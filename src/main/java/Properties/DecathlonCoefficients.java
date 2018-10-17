@@ -60,6 +60,13 @@ public class DecathlonCoefficients {
         decathlonCoefficientsMap = new HashMap<>();
     }
 
+    public static Double getDefaultCoefficientValue(String name) {
+        if(DEFAULT_COEFS_MAP.containsKey(name))
+            return DEFAULT_COEFS_MAP.get(name);
+
+        return null;
+    }
+
     public Double getCoefficientValue(String coefName) {
         if(!decathlonCoefficientsMap.containsKey(coefName)) {
             if(!DEFAULT_COEFS_MAP.containsKey(coefName)) return null;
