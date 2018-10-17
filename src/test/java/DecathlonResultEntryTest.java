@@ -1,5 +1,5 @@
-import Domain.DecathlonEventResult;
-import Domain.DecathlonResultEntry;
+import com.decathlon.calc.Domain.DecathlonEventResult;
+import com.decathlon.calc.Domain.DecathlonResultEntry;
 import org.junit.Assert;
 import org.junit.Test;
 

@@ -1,5 +1,8 @@
-import Domain.DecathlonEventResult;
-import Properties.DecathlonCoefficients;
+package com.decathlon.calc;
+
+import com.decathlon.calc.Domain.DecathlonEventResult;
+import com.decathlon.calc.Domain.DecathlonEventType;
+import com.decathlon.calc.Properties.DecathlonCoefficients;
 
 public class DecathlonEventResultPointsCalculator {
 
@@ -20,7 +23,7 @@ public class DecathlonEventResultPointsCalculator {
     public DecathlonEventResultPointsCalculator(
             DecathlonCoefficients coefficients
     ) {
-        providedCoefficients = coefficients;
+        if(coefficients != null) providedCoefficients = coefficients;
     }
 
     public Integer calculateEventScore(DecathlonEventResult eventResult)
@@ -118,7 +121,9 @@ public class DecathlonEventResultPointsCalculator {
 
         Double eventResultValue;
         //Special case for jumps: jump distance has to be converter to centimeters
-        if(eventResult.getName().contains("JUMP"))
+        if(eventName.contains("JUMP") ||
+                eventName.equals(DecathlonEventType.POLE_VAULT.name()))
+
             eventResultValue = eventResult.getResult() * 100;
         else eventResultValue = eventResult.getResult();
 
