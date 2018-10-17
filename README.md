@@ -18,4 +18,6 @@ Running:
     2. Using java - starting at the build folder, navigate to build/libs and execute `java -jar [jar_name]`
     
 P.S. Decathlon coefficients can be specified in a .properties file. This file should be located at <build_folder>/src/main/resources.
-To use this file run the program with an additional argument - i.e. `java -jar [jar_name] [properties_file_without_the_extension]`
+To use this file run the program with an additional argument - i.e. `java -jar [jar_name] [properties_file_without_the_extension]`.
+An example is located at `ocated at <build_folder>/src/main/resources/decathlon_coefficients.properties`.
+Note: in order to use modified .properties files, the program must be recompiled.
