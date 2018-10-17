@@ -52,9 +52,12 @@ public class XmlDecathlonResultWriter implements IDecathlonResultWriter {
                 totalScore.appendChild(
                         document.createTextNode(entry.getTotalScore().toString())
                 );
+                Element events = document.createElement("events");
 
                 athlete.appendChild(place);
                 athlete.appendChild(totalScore);
+                athlete.appendChild(events);
+
 
                 for (DecathlonEventResult eventResult :
                         entry.getAllEventResults()) {
@@ -68,7 +71,7 @@ public class XmlDecathlonResultWriter implements IDecathlonResultWriter {
                             DecathlonEventType.ONE_AND_HALF_KILOMETER_RUN.name()
                     )) {
                         eventResultValue = String.format(
-                                "%d:%f",
+                                "%d:%.2f",
                                 eventResult.getResult()
                                                 .intValue() / 60,
                                 eventResult.getResult() % 60
@@ -78,7 +81,7 @@ public class XmlDecathlonResultWriter implements IDecathlonResultWriter {
 
                     event.appendChild(
                             document.createTextNode(eventResultValue));
-                    athlete.appendChild(event);
+                    events.appendChild(event);
                 }
 
                 root.appendChild(athlete);

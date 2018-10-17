@@ -2,6 +2,7 @@ package com.decathlon.calc.Domain;
 
 
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Set;
 
 public class DecathlonResultEntry {
@@ -15,7 +16,7 @@ public class DecathlonResultEntry {
     private String place;
 
     public DecathlonResultEntry() {
-        eventResults = new HashSet<>();
+        eventResults = new LinkedHashSet<>();
         totalScore = 0;
     }
 
@@ -32,7 +33,7 @@ public class DecathlonResultEntry {
     }
 
     public Set<DecathlonEventResult> getAllEventResults() {
-        return new HashSet<DecathlonEventResult>(eventResults);
+        return new LinkedHashSet<>(eventResults);
     }
 
     public boolean addEventResult(DecathlonEventResult eventResult) {
